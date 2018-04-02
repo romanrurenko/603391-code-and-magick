@@ -53,7 +53,6 @@ window.renderStatistics = function (ctx, players, times) {
   // вычисляем максимальное время
   var maxTime = getMaxElement(times);
 
-
   // выведем колонки с результатами игры всех игроков
   for (var i = 0; i < players.length; i++) {
     // находим высоту строки с отступом
@@ -62,16 +61,22 @@ window.renderStatistics = function (ctx, players, times) {
     var calcBarHeight = Math.floor((BAR_MAX_HEIGHT / maxTime) * times[i]);
     // вычисляем позицию колонки по горизонтали
     var columnX = CLOUD_X + GAP_BAR + (BAR_WIDTH + GAP_BAR) * i;
+    // вычисляем позицию значения результата по вертикали
+    var textY = CLOUD_Y + GAP + stringHight * 2 + BAR_MAX_HEIGHT - calcBarHeight;
+    // вычисляем координаты колонки по вертикали
+    var rectY = CLOUD_Y + stringHight * 3 + BAR_MAX_HEIGHT - calcBarHeight;
+    // вычисляем координату вывода имени пользователя по вертикали
+    var usernameY = CLOUD_Y + GAP + stringHight * 3 + BAR_MAX_HEIGHT;
     // установим цвет текста
     ctx.fillStyle = FONT_COLOR;
     // выведем значение результата
-    ctx.fillText(Math.floor(times[i]), columnX, CLOUD_Y + GAP + stringHight * 2 + BAR_MAX_HEIGHT - calcBarHeight);
+    ctx.fillText(Math.floor(times[i]), columnX, textY);
     // установим цвет колонки
     ctx.fillStyle = setBarColor(players[i]);
     // выведем колонку пропорционально результату
-    ctx.fillRect(columnX, CLOUD_Y + stringHight * 3 + BAR_MAX_HEIGHT - calcBarHeight, BAR_WIDTH, calcBarHeight);
+    ctx.fillRect(columnX, rectY, BAR_WIDTH, calcBarHeight);
     // выведем имя игрока
     ctx.fillStyle = FONT_COLOR;
-    ctx.fillText(players[i], columnX, CLOUD_Y + GAP + stringHight * 3 + BAR_MAX_HEIGHT);
+    ctx.fillText(players[i], columnX, usernameY);
   }
 };
