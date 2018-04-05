@@ -19,62 +19,61 @@ function getRandomInRange(max) {
   return Math.floor(Math.random() * (max + 1));
 }
 
-//  функция клонируем шаблон и наполняем данными
-var renderWizard = function (wizard) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
-  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
-  return wizardElement;
-};
-
 // функция создаем массив волшебников и наполняем его из макета данными
-var createWizards = function (wizardsarray, wizardcount) {
-  for (var i = 0; i < wizardcount; i++) {
+var createWizards = function (wizardsArray, wizardCount) {
+  for (var i = 0; i < wizardCount; i++) {
     var wizardconfig = {
       name: charNames[getRandomInRange(7)] + ' ' + charSurnames[getRandomInRange(7)],
       coatColor: charCoatColors[getRandomInRange(5)],
       eyesColor: charEyesColors[getRandomInRange(4)]
     };
-    wizardsarray.push(wizardconfig);
+    wizardsArray.push(wizardconfig);
   }
-  return wizardsarray;
+  return wizardsArray;
 };
 
 // функция отображения блока c заданным классом
-var unhide = function (classname) {
+var show = function (classname) {
   var pageSetup = document.querySelector(classname);
   if (pageSetup) {
     pageSetup.classList.remove('hidden');
   }
 };
 
+// функция заполнения страницы волшебниками
+var insertWizards = function () {
+  // находим блок "Похожие персонажи"
+  var similarListElement = document.querySelector('.setup-similar-list');
+  // находим блок с шаблоном id  similar-wizard-template и извлекаем содержимое элемента
+  var similarWizardTemplate = document.querySelector('#similar-wizard-template')
+      .content
+      .querySelector('.setup-similar-item');
+  // создаем пустой фрагмент DOM
+  var fragment = document.createDocumentFragment();
+  // заполняем фрагмент элементами
+  for (var i = 0; i < wizards.length; i++) {
+    var wizardElement = similarWizardTemplate.cloneNode(true);
+    wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyesColor;
+    fragment.appendChild(wizardElement);
+  }
+  // помещаем фрагмент в DOM
+  similarListElement.appendChild(fragment);
+};
+
+
 // Начало. В соответствии с "Задание 1. Покажите блок .setup, убрав в JS-коде у него класс .hidden."
 // Убираем класc у блока .setup, если он существует в DOM
-unhide('.setup');
+show('.setup');
 
-//  создаем массив волшебников в количестве WIZARD_COUNT и наполняем его из макета данных
+// создаем массив волшебников в количестве WIZARD_COUNT и наполняем его из макета данных
 createWizards(wizards, WIZARD_COUNT);
 
-// находим блок "Похожие персонажи"
-var similarListElement = document.querySelector('.setup-similar-list');
+// заполнения страницы волшебниками
+insertWizards();
 
-// находим блок с шаблоном id  similar-wizard-template и извлекаем содержимое элемента
-var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-    .content
-    .querySelector('.setup-similar-item');
-
-// создаем пустой фрагмент DOM
-var fragment = document.createDocumentFragment();
-
-// заполняем фрагмент элементами
-for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
-}
-
-// помещаем фрагмент в DOM
-similarListElement.appendChild(fragment);
 
 // отображаем блок setup-similar
-unhide('.setup-similar');
+show('.setup-similar');
 
