@@ -30,19 +30,19 @@ var renderWizard = function (wizard, similarWizardTemplate) {
 // функция создаем массив волшебников и наполняем его из макета данными
 var createWizards = function (wizardsArray, wizardCount) {
   for (var i = 0; i < wizardCount; i++) {
-    var wizardconfig = {
+    var wizardConfig = {
       name: charNames[getRandomInRange(7)] + ' ' + charSurnames[getRandomInRange(7)],
       coatColor: charCoatColors[getRandomInRange(5)],
       eyesColor: charEyesColors[getRandomInRange(4)]
     };
-    wizardsArray.push(wizardconfig);
+    wizardsArray.push(wizardConfig);
   }
   return wizardsArray;
 };
 
 // функция отображения блока c заданным классом
-var show = function (classname) {
-  var pageSetup = document.querySelector(classname);
+var show = function (className) {
+  var pageSetup = document.querySelector(className);
   if (pageSetup) {
     pageSetup.classList.remove('hidden');
   }
