@@ -33,10 +33,10 @@ var getMaxElement = function (arr) {
 // если сновной игрок, то красный, для остальных синий и случайную насыщеность цвета в HSL
 var setBarColor = function (playerName) {
   if (playerName === 'Вы') {
-    return 'rgba(255, 0, 0, 1)'
+    return 'rgba(255, 0, 0, 1)';
   }
-  return 'hsl(' + HSL_HUE + ', ' + (Math.floor(Math.random() * 99) + 1) + '%, 60%)'
-}
+  return 'hsl(' + HSL_HUE + ', ' + (Math.floor(Math.random() * 99) + 1) + '%, 60%)';
+};
 
 
 window.renderStatistics = function (ctx, players, times) {
@@ -47,9 +47,9 @@ window.renderStatistics = function (ctx, players, times) {
   // выводим текст заголовка
   ctx.fillStyle = FONT_COLOR;
   ctx.font = '16px PT Mono';
-  ctx.textBaseline = "top";
-  ctx.fillText("Ура вы победили!", CLOUD_X + GAP_BAR, CLOUD_Y + GAP);
-  ctx.fillText("Список результатов:", CLOUD_X + GAP_BAR, CLOUD_Y + GAP + TEXT_HEIGHT + GAP);
+  ctx.textBaseline = 'top';
+  ctx.fillText('Ура вы победили!', CLOUD_X + GAP_BAR, CLOUD_Y + GAP);
+  ctx.fillText('Список результатов:', CLOUD_X + GAP_BAR, CLOUD_Y + GAP + TEXT_HEIGHT + GAP);
   // вычисляем максимальное время
   var maxTime = getMaxElement(times);
 
