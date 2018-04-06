@@ -42,9 +42,9 @@ var createWizards = function (wizardsArray, wizardCount) {
 
 // функция отображения блока c заданным классом
 var show = function (className) {
-  var pageSetup = document.querySelector(className);
-  if (pageSetup) {
-    pageSetup.classList.remove('hidden');
+  var selectedBlock = document.querySelector(className);
+  if (selectedBlock) {
+    selectedBlock.classList.remove('hidden');
   }
 };
 
