@@ -6,6 +6,7 @@ var WIZARD_COUNT = 4;
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 var MIN_LENGTH = 2;
+var MAX_LENGTH = 25;
 
 // создаем массив "волшеники"
 var wizards = [];
@@ -51,8 +52,8 @@ var createWizards = function (wizardsArray, wizardCount) {
 };
 
 // функция удаления класса у блока
-var deleteClass = function (cssPath, selectedClass) {
-  var selectedBlock = document.querySelector(cssPath);
+var deleteClass = function (elementSelector, selectedClass) {
+  var selectedBlock = document.querySelector(elementSelector);
   if (selectedBlock) {
     selectedBlock.classList.remove(selectedClass);
   }
@@ -169,11 +170,11 @@ setupClose.addEventListener('keydown', function (evt) {
 
 // валидация ввода имени персонажжа
 var userNameInput = setup.querySelector('.setup-user-name');
-userNameInput.addEventListener('invalid', function (evt) {
+userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
-    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+    userNameInput.setCustomValidity('Имя должно состоять минимум из ' + MIN_LENGTH + '-х символов');
   } else if (userNameInput.validity.tooLong) {
-    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+    userNameInput.setCustomValidity('Имя не должно превышать ' + MAX_LENGTH + '-ти символов');
   } else if (userNameInput.validity.valueMissing) {
     userNameInput.setCustomValidity('Обязательное поле');
   } else {
@@ -185,7 +186,7 @@ userNameInput.addEventListener('invalid', function (evt) {
 userNameInput.addEventListener('input', function (evt) {
   var target = evt.target;
   if (target.value.length < MIN_LENGTH) {
-    target.setCustomValidity('Имя должно состоять минимум из ' + MIN_LENGTH + '2-х символов');
+    target.setCustomValidity('Имя должно состоять минимум из ' + MIN_LENGTH + '-х символов');
   } else {
     target.setCustomValidity('');
   }
