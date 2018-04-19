@@ -106,6 +106,91 @@ var onPopupEscPress = function (evt) {
     closePopup();
   }
 };
+// установить атрибут всем элементам блока
+var setAttributeAll = function (nodeSelector, newAttribute, value) {
+  var elements = document.querySelectorAll(nodeSelector);
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].setAttribute(newAttribute, value);
+  }
+};
+
+var deleteAttributeAll = function (nodeSelector, selectedAttribute) {
+  var elements = document.querySelectorAll(nodeSelector);
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].removeAttribute(selectedAttribute);
+  }
+};
+
+
+var dragNDrop = function () {
+  var shopElement = document.querySelector('.setup-artifacts-shop');
+  var draggedItem = null;
+  shopElement.addEventListener('dragstart', function (evt) {
+    if (evt.target.tagName.toLowerCase() === 'img') {
+      draggedItem = evt.target;
+      evt.dataTransfer.setData('text/plain', evt.target.alt);
+    }
+    setAttributeAll('.setup-artifacts .setup-artifacts-cell', 'style', 'outline: 2px dashed red;');
+    return false;
+  });
+
+  shopElement.addEventListener('dragend', function (evt) {
+    deleteAttributeAll('.setup-artifacts-cell', 'style');
+    evt.preventDefault();
+  });
+
+  var artifactsElement = document.querySelector('.setup-artifacts');
+  artifactsElement.addEventListener('dragstart', function (evt) {
+    if (evt.target.tagName.toLowerCase() === 'img') {
+      draggedItem = evt.target;
+      evt.dataTransfer.setData('text/plain', evt.target.alt);
+    }
+    setAttributeAll('.setup-artifacts .setup-artifacts-cell', 'style', 'outline: 2px dashed red;');
+  });
+
+  artifactsElement.addEventListener('dragend', function (evt) {
+    deleteAttributeAll('.setup-artifacts-cell', 'style');
+    evt.preventDefault();
+  });
+
+  artifactsElement.addEventListener('dragover', function (evt) {
+    if (evt.target.tagName.toLowerCase() !== 'img') {
+      evt.dataTransfer.dropEffect = 'copy';
+      evt.target.style = 'outline: 2px dashed red;background:yellow;';
+    }
+    evt.preventDefault();
+    return false;
+  });
+
+  artifactsElement.addEventListener('drop', function (evt) {
+    evt.target.style = '';
+    deleteAttributeAll('.setup-artifacts-cell', 'style');
+    evt.target.appendChild(draggedItem);
+    var copyShopElement = draggedItem.cloneNode(true);
+    var sourceElement = shopElement.querySelectorAll('.setup-artifacts-cell');
+    for (var i = 0; i < sourceElement.length; i++) {
+      if (sourceElement[i].text !== '') {
+        sourceElement[i].appendChild(copyShopElement);
+        break;
+      }
+    }
+
+    evt.preventDefault();
+  });
+
+  artifactsElement.addEventListener('dragenter', function (evt) {
+    evt.target.style = '';
+    evt.preventDefault();
+  });
+
+  artifactsElement.addEventListener('dragleave', function (evt) {
+    if (evt.target.tagName.toLowerCase() !== 'img') {
+      evt.target.style = 'outline: 2px dashed red;';
+    }
+    evt.preventDefault();
+  });
+};
+
 
 // открываем окно настроек
 var openPopup = function () {
@@ -113,6 +198,7 @@ var openPopup = function () {
   document.addEventListener('keydown', onPopupEscPress);
   setupWizardEyes.addEventListener('click', changeEyesColor);
   setupFireball.addEventListener('click', changeFireballColor);
+  dragNDrop();
 };
 
 // закрываем окно настроек
@@ -121,8 +207,8 @@ var closePopup = function () {
   document.removeEventListener('keydown', onPopupEscPress);
   setupWizardEyes.removeEventListener('click', changeEyesColor);
   setupFireball.removeEventListener('click', changeFireballColor);
+  setup.style = defaultCoords;
 };
-
 
 // Начало.
 // заполняем переменные DOM элементами
@@ -134,6 +220,9 @@ var setupWizardEyes = document.querySelector('.wizard-eyes');
 var setupFireball = document.querySelector('.setup-fireball-wrap');
 var eyesColorInput = document.querySelector('#color-eyes');
 var fireballColorInput = document.querySelector('#fireball-color');
+var dialogHandle = setup.querySelector('.upload');
+var defaultCoords = dialogHandle.style;
+
 
 // Создаем массив волшебников в количестве WIZARD_COUNT
 createWizards(wizards, WIZARD_COUNT);
@@ -191,3 +280,5 @@ userNameInput.addEventListener('input', function (evt) {
     target.setCustomValidity('');
   }
 });
+
+
