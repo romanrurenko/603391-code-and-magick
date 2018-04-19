@@ -127,7 +127,7 @@ var dragNDrop = function () {
   var draggedItem = null;
   shopElement.addEventListener('dragstart', function (evt) {
     if (evt.target.tagName.toLowerCase() === 'img') {
-      draggedItem = evt.target;
+      draggedItem = evt.target.cloneNode(true);
       evt.dataTransfer.setData('text/plain', evt.target.alt);
     }
     setAttributeAll('.setup-artifacts .setup-artifacts-cell', 'style', 'outline: 2px dashed red;');
@@ -166,15 +166,6 @@ var dragNDrop = function () {
     evt.target.style = '';
     deleteAttributeAll('.setup-artifacts-cell', 'style');
     evt.target.appendChild(draggedItem);
-    var copyShopElement = draggedItem.cloneNode(true);
-    var sourceElement = shopElement.querySelectorAll('.setup-artifacts-cell');
-    for (var i = 0; i < sourceElement.length; i++) {
-      if (sourceElement[i].text !== '') {
-        sourceElement[i].appendChild(copyShopElement);
-        break;
-      }
-    }
-
     evt.preventDefault();
   });
 
@@ -190,7 +181,6 @@ var dragNDrop = function () {
     evt.preventDefault();
   });
 };
-
 
 // открываем окно настроек
 var openPopup = function () {
@@ -222,7 +212,6 @@ var eyesColorInput = document.querySelector('#color-eyes');
 var fireballColorInput = document.querySelector('#fireball-color');
 var dialogHandle = setup.querySelector('.upload');
 var defaultCoords = dialogHandle.style;
-
 
 // Создаем массив волшебников в количестве WIZARD_COUNT
 createWizards(wizards, WIZARD_COUNT);
@@ -280,5 +269,3 @@ userNameInput.addEventListener('input', function (evt) {
     target.setCustomValidity('');
   }
 });
-
-
