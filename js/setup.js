@@ -8,7 +8,6 @@ var ENTER_KEYCODE = 13;
 var MIN_LENGTH = 2;
 var MAX_LENGTH = 25;
 
-// создаем массив "волшеники"
 var wizards = [];
 var eyesColor = ['black', 'red', 'blue', 'yellow', 'green'];
 var fireballColor = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848]'];
@@ -59,27 +58,6 @@ var deleteClass = function (elementSelector, selectedClass) {
   }
 };
 
-// функция заполнения страницы волшебниками
-var insertWizards = function () {
-  // находим блок "Похожие персонажи" и извлекаем содержимое элемента
-  var similarListElement = document.querySelector('.setup-similar-list');
-
-  // находим блок с шаблоном id  и извлекаем содержимое элемента
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-      .content
-      .querySelector('.setup-similar-item');
-
-  // создаем пустой фрагмент DOM
-  var fragment = document.createDocumentFragment();
-
-  // заполняем фрагмент элементами
-  for (var i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
-  }
-  // помещаем фрагмент в DOM
-  similarListElement.appendChild(fragment);
-};
-
 // последовательно меняем цвет глаз
 var changeEyesColor = function () {
   currentEyesColor++;
@@ -121,8 +99,8 @@ var closePopup = function () {
   document.removeEventListener('keydown', onPopupEscPress);
   setupWizardEyes.removeEventListener('click', changeEyesColor);
   setupFireball.removeEventListener('click', changeFireballColor);
+  setup.style = defaultCoords;
 };
-
 
 // Начало.
 // заполняем переменные DOM элементами
@@ -134,12 +112,11 @@ var setupWizardEyes = document.querySelector('.wizard-eyes');
 var setupFireball = document.querySelector('.setup-fireball-wrap');
 var eyesColorInput = document.querySelector('#color-eyes');
 var fireballColorInput = document.querySelector('#fireball-color');
+var dialogHandle = setup.querySelector('.upload');
+var defaultCoords = dialogHandle.style;
 
 // Создаем массив волшебников в количестве WIZARD_COUNT
 createWizards(wizards, WIZARD_COUNT);
-
-// Заполнение страницы волшебниками
-insertWizards();
 
 // отображаем волшебников в настройках
 deleteClass('.setup-similar', 'hidden');
@@ -168,7 +145,7 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-// валидация ввода имени персонажжа
+// валидация поля имени персонажжа
 var userNameInput = setup.querySelector('.setup-user-name');
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
