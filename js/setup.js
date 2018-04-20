@@ -8,7 +8,6 @@ var ENTER_KEYCODE = 13;
 var MIN_LENGTH = 2;
 var MAX_LENGTH = 25;
 
-// создаем массив "волшеники"
 var wizards = [];
 var eyesColor = ['black', 'red', 'blue', 'yellow', 'green'];
 var fireballColor = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848]'];
@@ -59,27 +58,6 @@ var deleteClass = function (elementSelector, selectedClass) {
   }
 };
 
-// функция заполнения страницы волшебниками
-var insertWizards = function () {
-  // находим блок "Похожие персонажи" и извлекаем содержимое элемента
-  var similarListElement = document.querySelector('.setup-similar-list');
-
-  // находим блок с шаблоном id  и извлекаем содержимое элемента
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-      .content
-      .querySelector('.setup-similar-item');
-
-  // создаем пустой фрагмент DOM
-  var fragment = document.createDocumentFragment();
-
-  // заполняем фрагмент элементами
-  for (var i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
-  }
-  // помещаем фрагмент в DOM
-  similarListElement.appendChild(fragment);
-};
-
 // последовательно меняем цвет глаз
 var changeEyesColor = function () {
   currentEyesColor++;
@@ -106,81 +84,6 @@ var onPopupEscPress = function (evt) {
     closePopup();
   }
 };
-// установить атрибут всем элементам блока
-var setAttributeAll = function (nodeSelector, newAttribute, value) {
-  var elements = document.querySelectorAll(nodeSelector);
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].setAttribute(newAttribute, value);
-  }
-};
-
-var deleteAttributeAll = function (nodeSelector, selectedAttribute) {
-  var elements = document.querySelectorAll(nodeSelector);
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].removeAttribute(selectedAttribute);
-  }
-};
-
-
-var dragNDrop = function () {
-  var shopElement = document.querySelector('.setup-artifacts-shop');
-  var draggedItem = null;
-  shopElement.addEventListener('dragstart', function (evt) {
-    if (evt.target.tagName.toLowerCase() === 'img') {
-      draggedItem = evt.target.cloneNode(true);
-      evt.dataTransfer.setData('text/plain', evt.target.alt);
-    }
-    setAttributeAll('.setup-artifacts .setup-artifacts-cell', 'style', 'outline: 2px dashed red;');
-    return false;
-  });
-
-  shopElement.addEventListener('dragend', function (evt) {
-    deleteAttributeAll('.setup-artifacts-cell', 'style');
-    evt.preventDefault();
-  });
-
-  var artifactsElement = document.querySelector('.setup-artifacts');
-  artifactsElement.addEventListener('dragstart', function (evt) {
-    if (evt.target.tagName.toLowerCase() === 'img') {
-      draggedItem = evt.target;
-      evt.dataTransfer.setData('text/plain', evt.target.alt);
-    }
-    setAttributeAll('.setup-artifacts .setup-artifacts-cell', 'style', 'outline: 2px dashed red;');
-  });
-
-  artifactsElement.addEventListener('dragend', function (evt) {
-    deleteAttributeAll('.setup-artifacts-cell', 'style');
-    evt.preventDefault();
-  });
-
-  artifactsElement.addEventListener('dragover', function (evt) {
-    if (evt.target.tagName.toLowerCase() !== 'img') {
-      evt.dataTransfer.dropEffect = 'copy';
-      evt.target.style = 'outline: 2px dashed red;background:yellow;';
-    }
-    evt.preventDefault();
-    return false;
-  });
-
-  artifactsElement.addEventListener('drop', function (evt) {
-    evt.target.style = '';
-    deleteAttributeAll('.setup-artifacts-cell', 'style');
-    evt.target.appendChild(draggedItem);
-    evt.preventDefault();
-  });
-
-  artifactsElement.addEventListener('dragenter', function (evt) {
-    evt.target.style = '';
-    evt.preventDefault();
-  });
-
-  artifactsElement.addEventListener('dragleave', function (evt) {
-    if (evt.target.tagName.toLowerCase() !== 'img') {
-      evt.target.style = 'outline: 2px dashed red;';
-    }
-    evt.preventDefault();
-  });
-};
 
 // открываем окно настроек
 var openPopup = function () {
@@ -188,7 +91,6 @@ var openPopup = function () {
   document.addEventListener('keydown', onPopupEscPress);
   setupWizardEyes.addEventListener('click', changeEyesColor);
   setupFireball.addEventListener('click', changeFireballColor);
-  dragNDrop();
 };
 
 // закрываем окно настроек
@@ -215,9 +117,6 @@ var defaultCoords = dialogHandle.style;
 
 // Создаем массив волшебников в количестве WIZARD_COUNT
 createWizards(wizards, WIZARD_COUNT);
-
-// Заполнение страницы волшебниками
-insertWizards();
 
 // отображаем волшебников в настройках
 deleteClass('.setup-similar', 'hidden');
@@ -246,7 +145,7 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-// валидация ввода имени персонажжа
+// валидация поля имени персонажжа
 var userNameInput = setup.querySelector('.setup-user-name');
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
