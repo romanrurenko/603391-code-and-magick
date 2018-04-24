@@ -14,7 +14,7 @@
 
   // заполняем фрагмент элементами
   for (var i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
+    fragment.appendChild(window.renderWizard(wizards[i], similarWizardTemplate));
   }
   // помещаем фрагмент в DOM
   similarListElement.appendChild(fragment);

@@ -38,7 +38,6 @@
     return 'hsl(' + HSL_HUE + ', ' + (Math.floor(Math.random() * 99) + 1) + '%, 60%)';
   };
 
-
   window.renderStatistics = function (ctx, players, times) {
   // рисуем облако (окно)
     renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
