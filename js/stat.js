@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var CLOUD_WIDTH = 420;
   var CLOUD_HEIGHT = 270;
@@ -37,7 +38,6 @@
     }
     return 'hsl(' + HSL_HUE + ', ' + (Math.floor(Math.random() * 99) + 1) + '%, 60%)';
   };
-
 
   window.renderStatistics = function (ctx, players, times) {
   // рисуем облако (окно)
