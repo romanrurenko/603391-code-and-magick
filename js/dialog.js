@@ -6,12 +6,11 @@
   var setup = document.querySelector('.setup');
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = setup.querySelector('.setup-close');
-  var userNameEditor = document.querySelector('.setup-user-name');
+  var userNameEditor = setup.querySelector('.setup-user-name');
   var dialogHandle = setup.querySelector('.upload');
   var defaultCoords = dialogHandle.style;
   var setupWizardEyes = document.querySelector('.wizard-eyes');
   var setupFireball = document.querySelector('.setup-fireball-wrap');
-
 
   // открываем окно настроек
   var openPopup = function () {
@@ -19,7 +18,6 @@
     document.addEventListener('keydown', onPopupEscPress);
     setupWizardEyes.addEventListener('click', window.changeEyesColor);
     setupFireball.addEventListener('click', window.changeFireballColor);
-
   };
 
   // закрываем окно настроек
