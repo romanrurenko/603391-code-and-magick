@@ -18,7 +18,7 @@
     document.addEventListener('keydown', onPopupEscPress);
     setupWizardEyes.addEventListener('click', window.changeEyesColor);
     setupFireball.addEventListener('click', window.changeFireballColor);
-    window.load(window.onLoadSaccess, window.onErrorMsg);
+    window.backend.load(window.onLoadSaccess, window.onErrorMsg);
   };
 
   // закрываем окно настроек

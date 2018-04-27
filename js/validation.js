@@ -3,6 +3,7 @@
 (function () {
   var MIN_LENGTH = 2;
   var MAX_LENGTH = 25;
+  var TEN_SECOND = 10000;
   // валидация поля имени персонажжа
   var userNameInput = document.querySelector('.setup-user-name');
   userNameInput.addEventListener('invalid', function () {
@@ -29,7 +30,7 @@
 
   var form = window.userDialog.querySelector('.setup-wizard-form');
   form.addEventListener('submit', function (evt) {
-    window.save(new FormData(form), onSend, window.onErrorMsg);
+    window.backend.save(new FormData(form), onSend, window.onErrorMsg);
     evt.preventDefault();
   });
 
@@ -38,23 +39,16 @@
     window.closePopup();
   };
 
-  window.autoDelete = function (className) {
-    document.querySelector(className).remove();
+  window.autoHide = function (className) {
+    document.querySelector(className).classList.add('hidden');
   };
 
   window.onErrorMsg = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = ' z-index: 100; width: 100%; margin: 0 auto; text-align: center;padding: 50px; ';
-    node.style.color = 'yelolow';
-    node.style.background = 'rgba(0, 0, 0, 0.3)';
-    node.style.position = 'absolute';
-    node.style.top = '40%';
-    node.id = 'alert';
-    node.style.fontSize = '28px';
+    var node = document.querySelector('.error');
     node.textContent = 'Ошибка: ' + errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
+    node.classList.remove('hidden');
     setTimeout(function () {
-      window.autoDelete('#alert');
-    }, 5000);
+      window.autoHide('.error');
+    }, TEN_SECOND);
   };
 })();

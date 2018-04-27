@@ -32,15 +32,4 @@
     similarListElement.appendChild(fragment);
     window.userDialog.querySelector('.setup-similar').classList.remove('hidden');
   };
-
-  window.onErrorLoad = function (errorMessage) {
-    var node = document.createElement('div');
-    node.id = 'error';
-    node.style = 'min-width: 180px; margin: 0 auto; text-align: center; color: yellow; border: 1px solid yellow';
-    node.style.fontSize = '18px';
-    node.textContent = 'Ошибка: ' + errorMessage;
-    similarListElement.appendChild(node);
-    setTimeout(window.autoDelete('#error'), 5000);
-  };
-
 })();
