@@ -26,4 +26,35 @@
       target.setCustomValidity('');
     }
   });
+
+  var form = window.userDialog.querySelector('.setup-wizard-form');
+  form.addEventListener('submit', function (evt) {
+    window.save(new FormData(form), onSend, window.onErrorMsg);
+    evt.preventDefault();
+  });
+
+  var onSend = function () {
+    window.userDialog.querySelector('.setup-similar').classList.add('hidden');
+    window.closePopup();
+  };
+
+  window.autoDelete = function (className) {
+    document.querySelector(className).remove();
+  };
+
+  window.onErrorMsg = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = ' z-index: 100; width: 100%; margin: 0 auto; text-align: center;padding: 50px; ';
+    node.style.color = 'yelolow';
+    node.style.background = 'rgba(0, 0, 0, 0.3)';
+    node.style.position = 'absolute';
+    node.style.top = '40%';
+    node.id = 'alert';
+    node.style.fontSize = '28px';
+    node.textContent = 'Ошибка: ' + errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+    setTimeout(function () {
+      window.autoDelete('#alert');
+    }, 5000);
+  };
 })();
