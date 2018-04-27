@@ -3,7 +3,7 @@
 (function () {
   var MIN_LENGTH = 2;
   var MAX_LENGTH = 25;
-  var TEN_SECOND = 10000;
+  var TEN_SECONDS = 10000;
   // валидация поля имени персонажжа
   var userNameInput = document.querySelector('.setup-user-name');
   userNameInput.addEventListener('invalid', function () {
@@ -49,6 +49,6 @@
     node.classList.remove('hidden');
     setTimeout(function () {
       window.autoHide('.error');
-    }, TEN_SECOND);
+    }, TEN_SECONDS);
   };
 })();
