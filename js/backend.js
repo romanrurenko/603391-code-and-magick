@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var TEN_SECOND = 10000;
+  var TEN_SECONDS = 10000;
 
   window.backend = {
     load: function (onSuccess, onError) {
@@ -23,7 +23,7 @@
       xhr.addEventListener('timeout', function () {
         onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
       });
-      xhr.timeout = TEN_SECOND; // 10s
+      xhr.timeout = TEN_SECONDS; // 10s
       xhr.open('GET', LOAD_URL);
       xhr.send();
 
@@ -49,7 +49,7 @@
       xhr.addEventListener('timeout', function () {
         onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
       });
-      xhr.timeout = TEN_SECOND; // 10s
+      xhr.timeout = TEN_SECONDS; // 10s
 
       var SEND_URL = 'https://js.dump.academy/code-and-magick';
       xhr.open('POST', SEND_URL);

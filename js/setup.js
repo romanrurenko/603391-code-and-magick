@@ -23,7 +23,7 @@
     }
   };
 
-  window.onLoadSaccess = function (wizards) {
+  window.onLoadSuccess = function (wizards) {
     deleteChildElements('.setup-similar-list');
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < WIZARD_COUNT; i++) {
