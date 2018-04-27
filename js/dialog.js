@@ -18,10 +18,11 @@
     document.addEventListener('keydown', onPopupEscPress);
     setupWizardEyes.addEventListener('click', window.changeEyesColor);
     setupFireball.addEventListener('click', window.changeFireballColor);
+    window.backend.load(window.onLoadSuccess, window.onErrorMsg);
   };
 
   // закрываем окно настроек
-  var closePopup = function () {
+  window.closePopup = function () {
     setup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
     setupWizardEyes.removeEventListener('click', window.changeEyesColor);
@@ -32,7 +33,7 @@
   // обработчик клавишы ESC
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE && document.activeElement !== userNameEditor) {
-      closePopup();
+      window.closePopup();
     }
   };
 
@@ -50,13 +51,13 @@
 
   // обработчик клика по изображению крестика в окне
   setupClose.addEventListener('click', function () {
-    closePopup();
+    window.closePopup();
   });
 
   // обработчик нажатия Enter по изображению крестика в окне
   setupClose.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
-      closePopup();
+      window.closePopup();
     }
   });
 })();

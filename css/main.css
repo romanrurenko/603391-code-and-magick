@@ -180,6 +180,22 @@ header
     margin: 0 auto;
 }
 
+.error
+{
+  position: absolute;
+  z-index: 100;
+  top: 40%;
+
+  width: 100%;
+  margin: 0px auto;
+  text-align: center;
+  padding: 50px;
+
+  font-size: 28px;
+  color: yellow;
+  background: rgba(0, 0, 255, 0.7);
+}
+
 main
 {
     padding-top: 80px;
