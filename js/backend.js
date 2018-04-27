@@ -51,7 +51,7 @@
       });
       xhr.timeout = TEN_SECOND; // 10s
 
-      var SEND_URL = 'https://js.dump.academy/code-and-magick1';
+      var SEND_URL = 'https://js.dump.academy/code-and-magick';
       xhr.open('POST', SEND_URL);
       xhr.send(data);
     }
