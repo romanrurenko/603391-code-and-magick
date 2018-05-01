@@ -9,6 +9,7 @@
   var userNameEditor = setup.querySelector('.setup-user-name');
   var dialogHandle = setup.querySelector('.upload');
   var defaultCoords = dialogHandle.style;
+
   var setupWizardEyes = document.querySelector('.wizard-eyes');
   var setupFireball = document.querySelector('.setup-fireball-wrap');
 
