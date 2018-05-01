@@ -4,6 +4,7 @@
   var MIN_LENGTH = 2;
   var MAX_LENGTH = 25;
   var TEN_SECONDS = 10000;
+  window.userDialog = document.querySelector('.setup');
   // валидация поля имени персонажжа
   var userNameInput = document.querySelector('.setup-user-name');
   userNameInput.addEventListener('invalid', function () {
